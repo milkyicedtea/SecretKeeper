@@ -1,0 +1,21 @@
+<idea-plugin>
+  <id>org.cheek.SecretKeeper</id>
+  <name>SecretKeeper</name>
+  <version>0.1</version>
+  <vendor>Cheek</vendor>
+
+  <description><![CDATA[
+    Warns users when opening sensitive files like .env and blurs the content until confirmed.
+  ]]></description>
+
+  <depends>com.intellij.modules.platform</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <fileEditorProvider implementation="org.cheek.secretkeeper.FileEditorProvider"/>
+  </extensions>
+
+  <projectListeners>
+    <listener class="org.cheek.secretkeeper.FileEditorListener"
+              topic="com.intellij.openapi.fileEditor.FileEditorManagerListener"/>
+  </projectListeners>
+</idea-plugin>
