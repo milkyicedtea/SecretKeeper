@@ -1,6 +1,6 @@
 ### Gradle ###
 .gradle
-gradle/
+gradle/**
 gradlew
 gradlew.bat
 build/
