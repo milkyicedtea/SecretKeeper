@@ -17,7 +17,7 @@ class FileEditorListener : FileEditorManagerListener {
 
     override fun fileOpened(source: FileEditorManager, file: VirtualFile) {
         // log the file opening for debugging
-        println("File opened: ${file.name}, isSensitive: ${isSensitiveFile(file)}")
+        // println("File opened: ${file.name}, isSensitive: ${isSensitiveFile(file)}")
 //        Thread.dumpStack()
 
         if (isSensitiveFile(file) && warnedFiles.putIfAbsent(file, true) == null) {
