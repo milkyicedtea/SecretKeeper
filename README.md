@@ -4,7 +4,7 @@
 [![forthebadge](https://forthebadge.com/images/featured/featured-built-with-love.svg)](https://forthebadge.com)
 
 # SecretKeeper
-A JetBrains plugin that helps protect sensitive information from being exposed
+A plugin for JetBrains IDEs that helps protect sensitive information from being exposed
 
 ## Features
 - Warns you when opening files containing sensitive data and blurs the content until you confirm
