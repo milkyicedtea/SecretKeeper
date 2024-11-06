@@ -2,16 +2,42 @@
   <id>org.cheek.SecretKeeper</id>
   <name>SecretKeeper</name>
   <version>0.1</version>
+  <idea-version since-build="221"/>
   <vendor>Cheek</vendor>
 
   <description><![CDATA[
-    Warns users when opening sensitive files like .env and blurs the content until confirmed.
+    <p>A JetBrains plugin that helps protect sensitive information from being exposed.</p>
+
+    <h2> Features </h2>
+    <ul>
+      <li>Warns you when opening files containing sensitive data and blurs the content until you confirm.</li>
+      <li>Prompts for confirmation before committing files with sensitive data, but only for commits made via the
+      IDE's built-in Git tool.</li>
+    </ul>
+    <details>
+
+    <h2> Issues & Feedback </h2>
+    <p>If you encounter any issues or have suggestions, please feel free to let me know by opening an
+    <a href="https://github.com/milkyicedtea/SecretKeeper/issues">issue</a></p>
   ]]></description>
+
+  <change-notes><![CDATA[
+    <h2>New in Version 0.1</h2>
+    <ul>
+      <li>Added warning and content blur for files containing sensitive data when opened</li>
+      <li>Added confirmation prompt before committing sensitive files via the IDE's Git tool</li>
+    </ul>
+    <h2>Bug Fixes</h2>
+    <ul>
+      <li>Resolved issue preventing files from saving after closing</li>
+    </ul>
+  ]]></change-notes>
 
   <depends>com.intellij.modules.platform</depends>
 
   <extensions defaultExtensionNs="com.intellij">
     <fileEditorProvider implementation="org.cheek.secretkeeper.FileEditorProvider"/>
+    <checkinHandlerFactory implementation="org.cheek.secretkeeper.CommitCheckinHandlerFactory"/>
   </extensions>
 
   <projectListeners>

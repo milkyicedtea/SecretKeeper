@@ -10,18 +10,18 @@ import java.util.TimerTask
 import java.util.concurrent.ConcurrentHashMap
 
 class FileEditorListener : FileEditorManagerListener {
-    // Track files that have already shown a warning dialog in the session
+    // track files that have already shown a warning dialog in the session
     private val warnedFiles = ConcurrentHashMap<VirtualFile, Boolean>()
     private val dialogOpenFiles = ConcurrentHashMap<VirtualFile, Boolean>()
     private var debounceTimer: Timer? = null
 
     override fun fileOpened(source: FileEditorManager, file: VirtualFile) {
-        // Log the file opening for debugging
+        // log the file opening for debugging
         println("File opened: ${file.name}, isSensitive: ${isSensitiveFile(file)}")
 //        Thread.dumpStack()
 
         if (isSensitiveFile(file) && warnedFiles.putIfAbsent(file, true) == null) {
-            debounceTimer?.cancel() // Cancel any existing timer
+            debounceTimer?.cancel() // cancel any existing timer
 
             debounceTimer = Timer().apply {
                 schedule(object : TimerTask() {
@@ -34,18 +34,14 @@ class FileEditorListener : FileEditorManagerListener {
                             }
                         }
                     }
-                }, 300) // Set appropriate debounce delay
+                }, 300) // set debounce delay
             }
         }
     }
 
     override fun fileClosed(source: FileEditorManager, file: VirtualFile) {
-        // Optionally reset the warning state for the file when closed
+        // reset the warning state for the file when closed
         warnedFiles.remove(file)
-    }
-
-    private fun isSensitiveFile(file: VirtualFile): Boolean {
-        return file.name == ".env" || file.extension == "key"
     }
 
     private fun showWarningDialog(project: Project, file: VirtualFile, onDialogClosed: () -> Unit) {
@@ -66,4 +62,8 @@ class FileEditorListener : FileEditorManagerListener {
             onDialogClosed()
         }
     }
+}
+
+fun isSensitiveFile(file: VirtualFile): Boolean {
+    return file.name.contains(".env") || file.extension == "key"
 }

@@ -9,7 +9,7 @@ import com.intellij.openapi.vfs.VirtualFile
 
 class FileEditorProvider : FileEditorProvider, DumbAware {
     override fun accept(project: Project, file: VirtualFile): Boolean {
-        return file.name == ".env" || file.extension == "key" // Add more conditions as needed
+        return file.name.contains(".env") || file.extension == "key"
     }
 
     override fun createEditor(project: Project, file: VirtualFile): FileEditor {

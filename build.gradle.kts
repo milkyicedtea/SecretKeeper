@@ -26,7 +26,7 @@ intellij {
 //  type.set("AI")  // Android Studio
 //  type.set("RR")  // Rust Rover
 
-  plugins.set(listOf(/* Plugin Dependencies */))
+  plugins.set(listOf("Git4Idea"))
 }
 
 tasks {

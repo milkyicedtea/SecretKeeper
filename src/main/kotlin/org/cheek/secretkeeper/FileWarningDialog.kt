@@ -16,8 +16,12 @@ class FileWarningDialog(project: Project, private val file: VirtualFile) : Dialo
         return panel {
             row {
                 label("The file '${file.name}' contains sensitive information.")
+            }
+            row {
                 label("If you are sharing your screen, you should not enter.")
-                label("Are you you want to open it?")
+            }
+            row {
+                label("Are you sure you want to open it?")
             }
         }
     }
