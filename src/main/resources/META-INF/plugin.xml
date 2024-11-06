@@ -6,7 +6,7 @@
   <vendor>Cheek</vendor>
 
   <description><![CDATA[
-    <p>A JetBrains plugin that helps protect sensitive information from being exposed.</p>
+    <p>A plugin for JetBrains IDEs that helps protect sensitive information from being exposed.</p>
 
     <h2> Features </h2>
     <ul>
