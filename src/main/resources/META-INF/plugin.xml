@@ -22,12 +22,17 @@
   ]]></description>
 
   <change-notes><![CDATA[
+    <h2>New in Version 0.1.1</h2>
+    <ul>
+      <li>Updated plugin.xml for compatibility with 2024.3.* IDEs versions</li>
+    </ul>
+
     <h2>New in Version 0.1</h2>
     <ul>
       <li>Added warning and content blur for files containing sensitive data when opened</li>
       <li>Added confirmation prompt before committing sensitive files via the IDE's Git tool</li>
     </ul>
-    <h2>Bug Fixes</h2>
+    <h3>Bug Fixes</h3>
     <ul>
       <li>Resolved issue preventing files from saving after closing</li>
     </ul>

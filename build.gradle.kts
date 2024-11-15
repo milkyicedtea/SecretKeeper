@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "org.cheek"
-version = 0.1
+version = "0.1.1"
 
 repositories {
   mavenCentral()
@@ -15,6 +15,7 @@ repositories {
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
   version.set("2022.1")
+  updateSinceUntilBuild.set(true)
   // Target IDE Platforms
 //  type.set("IC")  // IntelliJ IDEA Community Edition
 //  type.set("IU")  // IntelliJ IDEA Ultimate Edition
@@ -42,7 +43,7 @@ tasks {
 
   patchPluginXml {
     sinceBuild.set("221")
-    untilBuild.set("242.*")
+    untilBuild.set("243.*")
   }
 
   signPlugin {
