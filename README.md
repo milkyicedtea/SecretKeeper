@@ -18,7 +18,7 @@ A plugin for JetBrains IDEs that helps protect sensitive information from being 
 
 ## Installation
 - Download from the JetBrains marketplace! <br>
-![JetBrains Plugin Version](https://img.shields.io/jetbrains/plugin/v/25768)
+[![JetBrains Plugin Version](https://img.shields.io/jetbrains/plugin/v/25768)](https://plugins.jetbrains.com/plugin/25768-secretkeeper)
 
 or
 
