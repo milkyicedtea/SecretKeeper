@@ -10,6 +10,8 @@ A plugin for JetBrains IDEs that helps protect sensitive information from being 
 - Warns you when opening files containing sensitive data and blurs the content until you confirm
 - Prompts for confirmation before committing files with sensitive data, but only for commits made
   via the IDE's built-in Git tool.
+- More features coming soon™‼️
+  
 <details>
   <summary>Screenshots:</summary>
     <img src="https://i.ibb.co/b3MGhx7/image.png" alt="Opening a file"/>
