@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "org.cheek"
-version = "0.1.2"
+version = "0.1.3"
 
 repositories {
   mavenCentral()
@@ -43,7 +43,7 @@ tasks {
 
   patchPluginXml {
     sinceBuild.set("221")
-    untilBuild.set("251.*")
+    untilBuild.set("252.*")
   }
 
   signPlugin {
