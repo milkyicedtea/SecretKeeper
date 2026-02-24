@@ -25,3 +25,4 @@ out/
 
 ### Others ###
 .run
+.DS_Store
