@@ -1,16 +1,25 @@
-import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
+import org.jetbrains.changelog.Changelog
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+fun properties(key: String) = project.findProperty(key).toString()
 
 plugins {
+  // Java support
   id("java")
+  // Kotlin support
   id("org.jetbrains.kotlin.jvm") version "2.3.10"
 
-  // new 2.x plugin
+  // Gradle IntelliJ Plugin
   id("org.jetbrains.intellij.platform") version "2.11.0"
+  // Gradle Changelog Plugin
+  id("org.jetbrains.changelog") version "2.5.0"
 }
 
-group = "org.cheek"
-version = "0.1.4"
+group = properties("pluginGroup")
+version = properties("pluginVersion")
 
 repositories {
   mavenCentral()
@@ -21,35 +30,70 @@ repositories {
 
 dependencies {
   intellijPlatform {
-    intellijIdeaCommunity("2023.3")
-    bundledPlugins("Git4Idea")
+    create(
+      providers.gradleProperty("platformType"),
+      providers.gradleProperty("platformVersion")
+    )
+
+    bundledPlugins(providers.gradleProperty("platformPlugins")
+      .map { it.split(',') })
     testFramework(TestFrameworkType.Platform)
+    testFramework(TestFrameworkType.Plugin.Java)
   }
 }
 
 intellijPlatform {
   projectName = project.name
 
-  pluginVerification {
-    ides {
-      create(IntelliJPlatformType.IntellijIdeaCommunity, "2023.3")
-      create(IntelliJPlatformType.IntellijIdeaCommunity, "2024.3")
-      create(IntelliJPlatformType.IntellijIdea, "2025.3") // no more community because unified
-//      select {
-//        types = listOf(IntelliJPlatformType.IntellijIdea)
-//        channels = listOf(ProductRelease.Channel.RELEASE)
-//        sinceBuild = "232"
-//      }
+  pluginConfiguration {
+    id.set(properties("pluginGroup"))
+    name.set(properties("pluginName"))
+    version.set(properties("pluginVersion"))
+
+    changelog {
+      version.set(properties("pluginVersion"))
+      path.set(file("CHANGELOG.md").canonicalPath)
+      header.set(provider { version.get() })
+      itemPrefix.set("-")
     }
   }
 
-  signing {
-    certificateChain.set(System.getenv("CERTIFICATE_CHAIN"))
-    privateKey.set(System.getenv("PRIVATE_KEY"))
-    password.set(System.getenv("PRIVATE_KEY_PASSWORD"))
+  pluginVerification {
+    ides {
+      recommended()
+    }
+  }
+}
+
+tasks {
+  properties("javaVersion").let {
+    withType<JavaCompile> {
+      sourceCompatibility = it
+      targetCompatibility = it
+    }
+    withType<KotlinCompile> {
+      compilerOptions {
+        apiVersion = KotlinVersion.KOTLIN_2_3
+        jvmTarget = JvmTarget.fromTarget(properties("javaVersion"))
+      }
+    }
   }
 
-  publishing {
+  wrapper { gradleVersion = "9.3.1" }
+
+  patchPluginXml {
+    pluginVersion.set(properties("pluginVersion"))
+    sinceBuild.set(properties("pluginSinceBuild"))
+    untilBuild.set(properties("pluginUntilBuild"))
+
+    changeNotes.set(
+      provider { changelog.renderItem(changelog.getLatest(), Changelog.OutputType.HTML) }
+    )
+  }
+
+  publishPlugin {
+    dependsOn("patchChangelog")
     token.set(System.getenv("PUBLISH_TOKEN"))
+    channels.set(listOf("default"))
   }
 }
