@@ -25,6 +25,10 @@ jobs:
       - name: Build plugin
         run: ./gradlew buildPlugin
 
+      - name: Debug - Find ZIP
+        run: |
+          find build/distributions -type f -name "*.zip"
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
