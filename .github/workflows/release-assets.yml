@@ -33,6 +33,8 @@ jobs:
 
       - name: Publish to JetBrains Marketplace
         run: ./gradlew publishPlugin
+        env:
+          PUBLISH_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2

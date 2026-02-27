@@ -1,5 +1,5 @@
 <idea-plugin>
-  <id>org.cheek.secretkeeper</id>
+  <id>org.cheek.SecretKeeper</id>
   <name>SecretKeeper</name>
   <vendor url="https://github.com/milkyicedtea">Cheek</vendor>
 
