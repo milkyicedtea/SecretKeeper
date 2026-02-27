@@ -2,7 +2,6 @@
   <id>org.cheek.SecretKeeper</id>
   <name>SecretKeeper</name>
   <version>0.1.4</version>
-  <idea-version since-build="221"/>
   <vendor>Cheek</vendor>
 
   <description><![CDATA[

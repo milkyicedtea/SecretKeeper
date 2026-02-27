@@ -15,17 +15,16 @@ import java.beans.PropertyChangeListener
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.editor.EditorFactory
 
-class FileEditor(private val project: Project, private val file: VirtualFile) : UserDataHolderBase(), FileEditor {
+class FileEditor(project: Project, private val file: VirtualFile) : UserDataHolderBase(), FileEditor {
 
     private val panel = JPanel(CardLayout())
     private val blurPanel = BlurPanel()
     private val editor: Editor
-    private val document: Document
+    // Associate the document with the file using FileDocumentManager
+    private val document: Document = FileDocumentManager.getInstance().getDocument(file)
+        ?: EditorFactory.getInstance().createDocument(String(file.contentsToByteArray(), Charsets.UTF_8).replace("\r\n", "\n"))
 
     init {
-        // Associate the document with the file using FileDocumentManager
-        document = FileDocumentManager.getInstance().getDocument(file)
-            ?: EditorFactory.getInstance().createDocument(String(file.contentsToByteArray(), Charsets.UTF_8).replace("\r\n", "\n"))
 
         editor = EditorFactory.getInstance().createEditor(document, project, file, false)
 

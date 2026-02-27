@@ -1,7 +1,12 @@
+import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
+import org.jetbrains.intellij.platform.gradle.TestFrameworkType
+
 plugins {
   id("java")
-  id("org.jetbrains.kotlin.jvm") version "1.9.25"
-  id("org.jetbrains.intellij") version "1.17.4"
+  id("org.jetbrains.kotlin.jvm") version "2.3.10"
+
+  // new 2.x plugin
+  id("org.jetbrains.intellij.platform") version "2.11.0"
 }
 
 group = "org.cheek"
@@ -9,50 +14,42 @@ version = "0.1.4"
 
 repositories {
   mavenCentral()
+  intellijPlatform {
+    defaultRepositories()
+  }
 }
 
-// Configure Gradle IntelliJ Plugin
-// Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
-intellij {
-  version.set("2022.1")
-  updateSinceUntilBuild.set(true)
-  // Target IDE Platforms
-//  type.set("IC")  // IntelliJ IDEA Community Edition
-//  type.set("IU")  // IntelliJ IDEA Ultimate Edition
-//  type.set("CL")  // CLion
-//  type.set("PY")  // PyCharm Professional Edition
-//  type.set("PC")  // PyCharm Community Edition
-//  type.set("PS")  // PhpStorm
-//  type.set("RD")  // Rider
-//  type.set("GO")  // GoLand
-//  type.set("AI")  // Android Studio
-//  type.set("RR")  // Rust Rover
-
-  plugins.set(listOf("Git4Idea"))
+dependencies {
+  intellijPlatform {
+    intellijIdeaCommunity("2023.3")
+    bundledPlugins("Git4Idea")
+    testFramework(TestFrameworkType.Platform)
+  }
 }
 
-tasks {
-  // Set the JVM compatibility versions
-  withType<JavaCompile> {
-    sourceCompatibility = "11"
-    targetCompatibility = "11"
-  }
-  withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions.jvmTarget = "11"
+intellijPlatform {
+  projectName = project.name
+
+  pluginVerification {
+    ides {
+      create(IntelliJPlatformType.IntellijIdeaCommunity, "2023.3")
+      create(IntelliJPlatformType.IntellijIdeaCommunity, "2024.3")
+      create(IntelliJPlatformType.IntellijIdea, "2025.3") // no more community because unified
+//      select {
+//        types = listOf(IntelliJPlatformType.IntellijIdea)
+//        channels = listOf(ProductRelease.Channel.RELEASE)
+//        sinceBuild = "232"
+//      }
+    }
   }
 
-  patchPluginXml {
-    sinceBuild.set("221")
-    untilBuild.set("253.*")
-  }
-
-  signPlugin {
+  signing {
     certificateChain.set(System.getenv("CERTIFICATE_CHAIN"))
     privateKey.set(System.getenv("PRIVATE_KEY"))
     password.set(System.getenv("PRIVATE_KEY_PASSWORD"))
   }
 
-  publishPlugin {
+  publishing {
     token.set(System.getenv("PUBLISH_TOKEN"))
   }
 }
