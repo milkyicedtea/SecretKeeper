@@ -30,3 +30,10 @@ jobs:
         with:
           generate_release_notes: true
           files: build/distributions/SecretKeeper-*.zip
+
+      - name: Publish to JetBrains Marketplace
+        uses: CodingWithCalvin/GHA-JBMarketplacePublisher@v1
+        with:
+          marketplace-pat: ${{ secrets.MARKETPLACE_PAT }}
+          archive-path: build/distributions/SecretKeeper-*.zip
+          plugin-id: 25768
