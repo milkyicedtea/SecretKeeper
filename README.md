@@ -12,11 +12,13 @@ A plugin for JetBrains IDEs that helps protect sensitive information from being 
   via the IDE's built-in Git tool.
 - More features coming soon™‼️
   
-<details>
-  <summary>Screenshots:</summary>
-    <img src="https://i.ibb.co/b3MGhx7/image.png" alt="Opening a file"/>
-    <img src="https://i.ibb.co/GtF8bq8/image.png" alt="Committing a file"/>
-</details>
+## Screenshots
+<table>
+  <tr>
+    <td><img src="screenshots/open.png" alt="Opening a file"/>
+    <td><img src="screenshots/commit.png" alt="Committing a file"/>
+  </tr>
+</table
 
 ## Installation
 - Download from the JetBrains marketplace! <br>
