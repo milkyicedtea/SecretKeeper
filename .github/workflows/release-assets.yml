@@ -25,8 +25,9 @@ jobs:
 
       - run: chmod +x gradlew
 
-      - name: Verify plugin
-        run: ./gradlew verifyPlugin
+# Verifying takes way too long on github actions. JB markteplace verifies a second time anyways
+#      - name: Verify plugin
+#        run: ./gradlew verifyPlugin
 
       - name: Build plugin
         run: ./gradlew buildPlugin
