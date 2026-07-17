@@ -20,9 +20,13 @@ jobs:
           distribution: temurin
           java-version: 17  # i'd like to use 25 it breaks compilation somehow
 
-      - uses: gradle/actions/setup-gradle@v5
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
 
       - run: chmod +x gradlew
+
+      - name: Verify plugin
+        run: ./gradlew verifyPlugin
 
       - name: Build plugin
         run: ./gradlew buildPlugin
